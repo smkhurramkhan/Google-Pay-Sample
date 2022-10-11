@@ -15,7 +15,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.pay.PayClient
-import com.google.android.gms.samples.wallet.R
 import com.google.android.gms.samples.wallet.databinding.ActivityCheckoutBinding
 import com.google.android.gms.samples.wallet.viewmodel.CheckoutViewModel
 import com.google.android.gms.wallet.PaymentData
@@ -63,9 +62,10 @@ class CheckoutActivity : AppCompatActivity() {
             googlePayButton.visibility = View.VISIBLE
         } else {
             Toast.makeText(
-                    this,
-                    R.string.google_pay_status_unavailable,
-                    Toast.LENGTH_LONG).show()
+                this,
+                "Unfortunately, Google Pay is not available on this phone.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -81,8 +81,9 @@ class CheckoutActivity : AppCompatActivity() {
         } else {
             Toast.makeText(
                 this,
-                R.string.google_wallet_status_unavailable,
-                Toast.LENGTH_LONG).show()
+                "Unfortunately, Google Wallet is not available on this phone.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
     
@@ -152,17 +153,24 @@ class CheckoutActivity : AppCompatActivity() {
 
         try {
             // Token will be null if PaymentDataRequest was not constructed using fromJson(String).
-            val paymentMethodData = JSONObject(paymentInformation).getJSONObject("paymentMethodData")
+            val paymentMethodData =
+                JSONObject(paymentInformation).getJSONObject("paymentMethodData")
             val billingName = paymentMethodData.getJSONObject("info")
-                    .getJSONObject("billingAddress").getString("name")
+                .getJSONObject("billingAddress").getString("name")
             Log.d("BillingName", billingName)
 
-            Toast.makeText(this, getString(R.string.payments_show_name, billingName), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                "Successfully received payment data for %s! $billingName",
+                Toast.LENGTH_LONG
+            ).show()
 
             // Logging token string.
-            Log.d("Google Pay token", paymentMethodData
+            Log.d(
+                "Google Pay token", paymentMethodData
                     .getJSONObject("tokenizationData")
-                    .getString("token"))
+                    .getString("token")
+            )
 
         } catch (error: JSONException) {
             Log.e("handlePaymentSuccess", "Error: $error")
@@ -196,7 +204,7 @@ class CheckoutActivity : AppCompatActivity() {
         if (requestCode == addToGoogleWalletRequestCode) {
             when (resultCode) {
                 RESULT_OK -> Toast
-                    .makeText(this, getString(R.string.add_google_wallet_success), Toast.LENGTH_LONG)
+                    .makeText(this, "The pass was added successfully!", Toast.LENGTH_LONG)
                     .show()
 
                 RESULT_CANCELED -> {
