@@ -16,8 +16,8 @@
 -->
 
 <resources>
-    <string name="app_name" translatable="false">Auto T-Shirt App</string>
-    <string name="store_name" translatable="false">Auto T-Shirt Shop</string>
+    <string name="app_name" translatable="false">Google Pay Sample</string>
+    <string name="store_name" translatable="false">Google Pay Sample</string>
     <string name="google_pay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this phone.</string>
     <string name="google_wallet_status_unavailable" translatable="false">Unfortunately, Google Wallet is not available on this phone.</string>
     <string name="google_pay_status_checking" translatable="false">Checking if Google Pay is available...</string>
